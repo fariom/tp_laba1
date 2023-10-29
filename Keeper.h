@@ -1,5 +1,7 @@
-#pragma once
+п»ї#pragma once
 #include "Base.h"
+#include "Book.h"
+#include "Manual.h"
 
 class Keeper {
 public:
@@ -8,20 +10,24 @@ public:
 	Keeper(Keeper* orig);
 	~Keeper();
 
-	Base* getHead();
-	void setHead(Base* head);
+	void setLimit(int count);
+	int getLimit();
+	void setSize(int count);
+	int getSize();
 
 	void print();
 	void eraseAll();
+	void checkLimit();
 
 	void printProduct(int count);
-	void addProduct();
-	void takeProduct();          //удалить последний товар в стопке
-	void takeProduct(int count); //удалить товар под номером count
+	void addProduct(int type);
+	void takeProduct(int count); //СѓРґР°Р»РёС‚СЊ С‚РѕРІР°СЂ РїРѕРґ РЅРѕРјРµСЂРѕРј count
 	void editProduct(int count);
 
 	void save();
 	void restore();
 private:
-	Base* head;
+	Base** bookStore;
+	int size;
+	int limit;
 };

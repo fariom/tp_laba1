@@ -1,5 +1,4 @@
-#pragma once
-#include "Book.h"
+п»ї#pragma once
 
 class Base {
 public:
@@ -8,14 +7,14 @@ public:
 	Base(Base* orig);
 	~Base();
 
-	virtual void print();
+	virtual void print() = 0;
+	virtual void setProduct() = 0;
 
 	void setPrice(int new_price);
 	int getPrice();
-	virtual void setNext(Base* next);
-	Base* getNext();
+	void setType(char s);
+	char getType();
 private:
 	int price;
-	char type; //m - учебник   b - книга   c - канцелярия
-	Base* next;
-};
+	char type; //m - СѓС‡РµР±РЅРёРє   b - РєРЅРёРіР°   c - РєР°РЅС†РµР»СЏСЂРёСЏ
+};             //manual        book        chancellery

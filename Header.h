@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <locale.h>
 #include <iostream>
 
@@ -7,9 +7,9 @@ void pressEnter();
 void pressEnter() {
     while (getchar() != '\n')
         continue;
-    cout << "Нажмите <Enter>, чтобы продолжить..." << endl;
+    std::cout << "РќР°Р¶РјРёС‚Рµ <Enter>, С‡С‚РѕР±С‹ РїСЂРѕРґРѕР»Р¶РёС‚СЊ..." << std::endl;
     while (getchar() != '\n')
         continue;
-    cin.clear();
+    std::cin.clear();
     system("CLS");
 }
