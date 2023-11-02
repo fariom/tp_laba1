@@ -1,7 +1,8 @@
-﻿#pragma once
+#pragma once
 #include "Base.h"
 #include "Book.h"
 #include "Manual.h"
+#include "Chancellery.h"
 
 class Keeper {
 public:
@@ -21,7 +22,7 @@ public:
 
 	void printProduct(int count);
 	void addProduct(int type);
-	void takeProduct(int count); //удалить товар под номером count
+	void takeProduct(int count);
 	void editProduct(int count);
 
 	void save();

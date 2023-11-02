@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "Base.h"
 
 class Manual : public Base {
@@ -10,6 +10,8 @@ public:
 
 	void print();
 	void setProduct();
+	void getFromFile(ifstream& fin);
+	void printInFile(ofstream& fout);
 
 	void setName(char* n);
 	char* getName();

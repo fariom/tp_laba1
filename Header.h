@@ -1,12 +1,12 @@
-﻿#pragma once
+#pragma once
 #include <locale.h>
 #include <iostream>
+#include <Windows.h>
 
 void pressEnter();
 
 void pressEnter() {
-    while (getchar() != '\n')
-        continue;
+    putchar('\n');
     std::cout << "Нажмите <Enter>, чтобы продолжить..." << std::endl;
     while (getchar() != '\n')
         continue;

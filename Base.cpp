@@ -1,21 +1,72 @@
-﻿#include "Base.h"
+#include "Base.h"
 
-class Base {
-public:
-	Base();
-	Base(int price);
-	Base(Base* orig);
-	~Base();
-	////////////////////////////////
-	virtual void print() = 0;
-	virtual void setProduct() = 0;
+Base::Base() {
+	price = 0;
+	type = 'B';
+};
+Base::Base(int p, char t) {
+	price = p;
+	type = t;
+};
+Base::Base(Base* orig) {
+	price = orig->getPrice();
+	type = orig->getType();
+};
+Base::~Base() {};
+////////////////////////////////
 
-	void setPrice(int new_price) {
-		price = new_price;
+void Base::setPrice(int new_price) {
+	price = new_price;
+};
+int Base::getPrice() {
+	return price;
+};
+void Base::setType(char s) {
+	type = s;
+};
+char Base::getType() {
+	return type;
+};
+
+void Base::printFullType() {
+	switch (type) {
+	case 'B':{
+		cout << "Книга";
+		break;
+	}
+	case 'M': {
+		cout << "Учебник";
+		break;
+	}
+	case 'C': {
+		cout << "Канцелярия";
+		break;
+	}
+	}
+};
+////////////////////////////////
+void Base::copyWord(char* orig, char* copy) {
+	int i = 0;
+	while ((copy[i] = orig[i++]) != '\0');
+}
+void Base::getWord(char* word, int count) {
+	char c;
+	int i;
+	for (i = 0;(i < count - 1) && ((c=getchar()) != '\n');word[i++] = c)
+		;
+	word[i] = '\0';
+	if (i == count - 1) {
+		while ((c = getchar()) != '\n');
+	}
+};
+void Base::getWordF(ifstream& fin, char* word, int count) {
+	char c;
+	int i = 0;
+	while (((c = fin.get()) != '\n') && (!fin.eof()) && (i < count - 1)) {
+		word[i++] = c;
 	};
-	int getPrice() {
-		return price;
-	};
-private:
-	int price;
+	word[i] = '\0';
+	if (i == count - 1) {
+		while ((c = fin.get()) != '\n');
+	}
 };

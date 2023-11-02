@@ -1,5 +1,5 @@
-﻿#include "Keeper.h"
-#include "Header.h"
+#include "Keeper.h"
+
 Keeper::Keeper() {
 	bookStore = new Base * [5];
 	limit = 5;
@@ -37,14 +37,15 @@ int Keeper::getSize() {
 };
 ////////////////////////////////
 void Keeper::print() {
-	for (int i = 0;i < size;++i) {
+	for (int i = 1;i <= size;++i) {
+		cout << "#" << i << "  ";
 		printProduct(i);
+		cout << "\n\n";
 	}
 };
 void Keeper::eraseAll() {
-	while (size != 0) {
-		takeProduct(size - 1);
-		--size;
+	while (size > 0) {
+		takeProduct(size);
 	}
 };
 void Keeper::checkLimit() {
@@ -54,8 +55,9 @@ void Keeper::checkLimit() {
 	else if ((size == limit - 10) && (limit >= 10)) {
 		limit -= 5;
 	}
-	else
+	else {
 		return;
+	}
 
 	Base** newBookStore = new Base * [limit];
 	for (int i = 0;i < size;++i) {
@@ -66,21 +68,26 @@ void Keeper::checkLimit() {
 }
 
 void Keeper::printProduct(int count) {
-	bookStore[count]->print();
+	bookStore[count - 1]->printFullType();
+	putchar('\n');
+	bookStore[count - 1]->print();
 };
 void Keeper::addProduct(int type) {
 	checkLimit();
 	switch (type) {
 	case 1: {
-		bookStore[size++] = new Book;
+		bookStore[size] = new Book;
+		bookStore[size]->setType('B');
 		break;
 	}
 	case 2: {
-		//bookStore[size++] = new Manual;
+		bookStore[size] = new Manual;
+		bookStore[size]->setType('M');
 		break;
 	}
 	case 3: {
-		//bookStore[size++] = new Chancellery;
+		bookStore[size] = new Chancellery;
+		bookStore[size]->setType('C');
 		break;
 	}
 	default: {
@@ -102,8 +109,48 @@ void Keeper::takeProduct(int count) {
 	--size;
 };
 void Keeper::editProduct(int count) {
-	bookStore[count]->setProduct();
+	bookStore[count-1]->setProduct();
 };
 ////////////////////////////////
-void Keeper::save() {};
-void Keeper::restore() {};
+void Keeper::save() {
+	ofstream fout;
+	fout.open("BookStore.txt");
+	for (int i = 0;i < size;i++) {
+		bookStore[i]->printInFile(fout);
+	}
+	fout.close();
+};
+void Keeper::restore() {
+	ifstream fin;
+	fin.open("BookStore.txt");
+	int i = 0;
+	char type;
+	while (!fin.eof()) {
+		checkLimit();
+		fin.get(type);
+		fin.get();
+		switch (type) {
+		case 'B': {
+			bookStore[size] = new Book;
+			break;
+		}
+		case 'M': {
+			bookStore[size] = new Manual;
+			break;
+		}
+		case 'C': {
+			bookStore[size] = new Chancellery;
+			break;
+		}
+		default: {
+			std::cout << "Error\n";
+			return;
+		}
+		}
+
+		bookStore[size]->setType(type);
+		bookStore[size++]->getFromFile(fin);
+	}
+	size--;
+	fin.close();
+};
