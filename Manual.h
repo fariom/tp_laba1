@@ -1,10 +1,10 @@
 #pragma once
-#include "Base.h"
+#include "Bookstore.h"
 
-class Manual : public Base {
+class Manual : public Bookstore {
 public:
 	Manual();
-	Manual(char* name, char* author, int releaseYear, char* educFacility, int yearStudy, int size);
+	Manual(char* n, char* a, int rY, char* eF, int yS, int s);
 	Manual(Manual* orig);
 	~Manual();
 
@@ -21,7 +21,7 @@ public:
 	int getReleaseYear();
 	void setEducFacility(char* eF);
 	char* getEducFacility();
-	void setYearStudy(char* yS);
+	void setYearStudy(int yS);
 	int getYearStudy();
 	void setSize(int s);
 	int getSize();

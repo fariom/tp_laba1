@@ -1,7 +1,7 @@
 #pragma once
-#include "Base.h"
+#include "Bookstore.h"
 
-class Book : public Base {
+class Book : public Bookstore {
 public:
 	Book();
 	Book(char* name, char* author, int releaseYear, char* annotation, char* genre, int size);

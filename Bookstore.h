@@ -5,12 +5,12 @@
 
 using namespace std;
 
-class Base {
+class Bookstore {
 public:
-	Base();
-	Base(int price, char t);
-	Base(Base* orig);
-	virtual ~Base();
+	Bookstore();
+	Bookstore(int price, char t);
+	Bookstore(Bookstore* orig);
+	virtual ~Bookstore();
 
 	virtual void print() = 0;
 	virtual void setProduct() = 0;

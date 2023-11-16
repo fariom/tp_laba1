@@ -1,28 +1,31 @@
 #include "Keeper.h"
 
 Keeper::Keeper() {
-	bookStore = new Base * [5];
+	storage = new Bookstore * [5];
 	limit = 5;
 	size = 0;
 };
 Keeper::Keeper(int count) {
-	bookStore = new Base * [count];
+	storage = new Bookstore * [count];
 	limit = count;
 	size = 0;
 };
 Keeper::Keeper(Keeper* orig) {
 	this->setLimit(orig->getLimit());
 	this->setSize(orig->getSize());
-	bookStore = new Base * [limit];
+	storage = new Bookstore * [limit];
 	for (int i = 0;i < size;++i) {
-		this->bookStore[i] = orig->bookStore[i];
+		this->storage[i] = orig->storage[i];
 	}
 };
 Keeper::~Keeper() {
 	eraseAll();
-	delete[] bookStore;
+	delete[] storage;
 };
-////////////////////////////////
+
+ ////////////////////////////////
+//  Функции set и get  /////////
+
 void Keeper::setLimit(int count) {
 	limit = count;
 };
@@ -35,7 +38,10 @@ void Keeper::setSize(int count) {
 int Keeper::getSize() {
 	return size;
 };
-////////////////////////////////
+
+ ////////////////////////////////
+//  Работа со складом  /////////
+
 void Keeper::print() {
 	for (int i = 1;i <= size;++i) {
 		cout << "#" << i << "  ";
@@ -59,98 +65,139 @@ void Keeper::checkLimit() {
 		return;
 	}
 
-	Base** newBookStore = new Base * [limit];
+	Bookstore** newStorage = new Bookstore * [limit];
 	for (int i = 0;i < size;++i) {
-		newBookStore[i] = bookStore[i];
+		newStorage[i] = storage[i];
 	}
-	delete[] bookStore;
-	bookStore = newBookStore;
+	delete[] storage;
+	storage = newStorage;
 }
 
 void Keeper::printProduct(int count) {
-	bookStore[count - 1]->printFullType();
+	storage[count - 1]->printFullType();
 	putchar('\n');
-	bookStore[count - 1]->print();
+	storage[count - 1]->print();
 };
 void Keeper::addProduct(int type) {
 	checkLimit();
-	switch (type) {
-	case 1: {
-		bookStore[size] = new Book;
-		bookStore[size]->setType('B');
-		break;
+	try {
+		switch (type) {
+		case 1: {
+			storage[size] = new Book;
+			storage[size]->setType('B');
+			break;
+		}
+		case 2: {
+			storage[size] = new Manual;
+			storage[size]->setType('M');
+			break;
+		}
+		case 3: {
+			storage[size] = new Chancellery;
+			storage[size]->setType('C');
+			break;
+		}
+		default: {
+			throw "Возникла ошибка при создании товара";
+			break;
+		}
+		}
 	}
-	case 2: {
-		bookStore[size] = new Manual;
-		bookStore[size]->setType('M');
-		break;
-	}
-	case 3: {
-		bookStore[size] = new Chancellery;
-		bookStore[size]->setType('C');
-		break;
-	}
-	default: {
-		std::cout << "Error\n";
+	catch (const char* ex) {
+		eraseAll();
+		std::cout << ex << endl;
 		return;
 	}
-	}
-	bookStore[size++]->setProduct();
+	storage[size++]->setProduct();
 };
 void Keeper::takeProduct(int count) {
 	checkLimit();
 	--count;
-	delete bookStore[count];
+	delete storage[count];
 	while (count + 1 < size) {
-		bookStore[count] = bookStore[count + 1];
+		storage[count] = storage[count + 1];
 		++count;
 	}
-	bookStore[count] = nullptr;
+	storage[count] = nullptr;
 	--size;
 };
 void Keeper::editProduct(int count) {
-	bookStore[count-1]->setProduct();
+	cout << "Текущий вид товара:" << endl;
+	printProduct(count);
+	cout << endl;
+	storage[count-1]->setProduct();
 };
-////////////////////////////////
+
+ ////////////////////////////////////
+//  Сохранение и загрузка в файл  //
+
 void Keeper::save() {
 	ofstream fout;
-	fout.open("BookStore.txt");
-	for (int i = 0;i < size;i++) {
-		bookStore[i]->printInFile(fout);
+	fout.open("storage.txt");
+	if (!fout.is_open()) {
+		std::cout << "Возникла ошибка при открытии файла, данные не сохранены" << endl;
+		return;
 	}
+	for (int i = 0;i < size;i++) {
+		storage[i]->printInFile(fout);
+	}
+	std::cout << "Данные успешно сохранены" << endl;
 	fout.close();
 };
-void Keeper::restore() {
+void Keeper::load() {
 	ifstream fin;
-	fin.open("BookStore.txt");
+	fin.open("storage.txt");
+	try {
+	if (!fin.is_open()) {
+		throw "Возникла ошибка при открытии файла, ассортимент будет пуст";
+	}
+	else if (fin.peek() == EOF) {
+		throw "Файл пуст, ассортимент пуст";
+		fin.close();
+	}
+	}
+	catch (const char* ex) {
+		std::cout << ex << endl;
+		return;
+	}
 	int i = 0;
 	char type;
 	while (!fin.eof()) {
 		checkLimit();
 		fin.get(type);
 		fin.get();
-		switch (type) {
-		case 'B': {
-			bookStore[size] = new Book;
-			break;
+		try {
+			switch (type) {
+			case 'B': {
+				storage[size] = new Book;
+				break;
+			}
+			case 'M': {
+				storage[size] = new Manual;
+				break;
+			}
+			case 'C': {
+				storage[size] = new Chancellery;
+				break;
+			}
+			default: {
+				throw "Ошибка при загрузке данных из файла, ассортимент очищен";
+				break;
+			}
+			}
 		}
-		case 'M': {
-			bookStore[size] = new Manual;
-			break;
-		}
-		case 'C': {
-			bookStore[size] = new Chancellery;
-			break;
-		}
-		default: {
-			std::cout << "Error\n";
+		catch (const char* ex) { 
+			eraseAll();
+			std::cout << ex << endl;
+			fin.close();
 			return;
 		}
-		}
 
-		bookStore[size]->setType(type);
-		bookStore[size++]->getFromFile(fin);
+		storage[size]->setType(type);
+		storage[size++]->getFromFile(fin);
 	}
 	size--;
+	std::cout << "Загрузка данных из файла прошла успешно" << endl;
 	fin.close();
+	return;
 };

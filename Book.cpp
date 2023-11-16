@@ -4,21 +4,31 @@
 Book::Book() {
 	name = new char[50];
 	author = new char[50];
-	annotation = new char[300];
+	annotation = new char[500];
 	genre = new char[20];
 
 	releaseYear = 0;
 	size = 0;
 };
 Book::Book(char* n, char* au, int rY, char* an, char* g, int s) {
-	name = n;
-	author = au;
-	releaseYear = rY;
-	annotation = an;
-	genre = g;
-	size = s;
+	name = new char[50];
+	author = new char[50];
+	annotation = new char[500];
+	genre = new char[20];
+
+	setName(n);
+	setAuthor(au);
+	setReleaseYear(rY);
+	setAnnotation(an);
+	setGenre(g);
+	setSize(s);
 };
 Book::Book(Book* orig) {
+	name = new char[50];
+	author = new char[50];
+	annotation = new char[500];
+	genre = new char[20];
+
 	setName(orig->getName());
 	setAuthor(orig->getAuthor());
 	releaseYear = orig->getReleaseYear();
@@ -41,6 +51,7 @@ void Book::print() {
 	cout << "Аннотация           " << annotation << endl;
 	cout << "Жанр                " << genre << endl;
 	cout << "Количество страниц  " << size << endl;
+	cout << "Цена книги          " << getPrice() << endl;
 };
 void Book::setProduct() {
 	char* buffer = new char[20];
@@ -52,7 +63,7 @@ void Book::setProduct() {
 	getWord(buffer, 20);
 	setReleaseYear(atoi(buffer));
 	cout << "Введите аннотацию           " << endl;
-	getWord(annotation, 300);
+	getWord(annotation, 500);
 	cout << "Введите жанр                " << endl;
 	getWord(genre, 20);
 	cout << "Введите количество страниц  " << endl;
@@ -69,7 +80,7 @@ void Book::getFromFile(ifstream& fin) {
 	getWordF(fin, author, 50);
 	getWordF(fin, buffer, 20);
 	setReleaseYear(atoi(buffer));
-	getWordF(fin, annotation, 300);
+	getWordF(fin, annotation, 500);
 	getWordF(fin, genre, 20);
 	getWordF(fin, buffer, 20);
 	setSize(atoi(buffer));
@@ -78,14 +89,14 @@ void Book::getFromFile(ifstream& fin) {
 	delete[] buffer;
 };
 void Book::printInFile(ofstream& fout) {
-	fout << getType() << "\n";
-	fout << getName() << "\n";
-	fout << getAuthor() << "\n";
-	fout << getReleaseYear() << "\n";
-	fout << getAnnotation() << "\n";
-	fout << getGenre() << "\n";
-	fout << getSize() << "\n";
-	fout << getPrice() << "\n";
+	fout << getType() << endl;
+	fout << getName() << endl;
+	fout << getAuthor() << endl;
+	fout << getReleaseYear() << endl;
+	fout << getAnnotation() << endl;
+	fout << getGenre() << endl;
+	fout << getSize() << endl;
+	fout << getPrice() << endl;
 };
 
 ///////////////////////////////

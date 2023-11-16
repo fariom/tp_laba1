@@ -13,3 +13,10 @@ void pressEnter() {
     std::cin.clear();
     system("CLS");
 }
+
+void input(int *num) {
+    cout << "\n > ";
+    cin >> *num;
+    putchar('\n');
+    getchar();
+}

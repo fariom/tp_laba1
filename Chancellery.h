@@ -1,10 +1,10 @@
 #pragma once
-#include "Base.h"
+#include "Bookstore.h"
 
-class Chancellery : public Base {
+class Chancellery : public Bookstore {
 public:
 	Chancellery();
-	Chancellery(char* type, char* colour, char* purpose);
+	Chancellery(char* t, char* c, char* p);
 	Chancellery(Chancellery* orig);
 	~Chancellery();
 

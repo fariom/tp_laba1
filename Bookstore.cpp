@@ -1,34 +1,38 @@
-#include "Base.h"
+#include "Bookstore.h"
 
-Base::Base() {
+Bookstore::Bookstore() {
 	price = 0;
 	type = 'B';
 };
-Base::Base(int p, char t) {
+Bookstore::Bookstore(int p, char t) {
 	price = p;
 	type = t;
 };
-Base::Base(Base* orig) {
+Bookstore::Bookstore(Bookstore* orig) {
 	price = orig->getPrice();
 	type = orig->getType();
 };
-Base::~Base() {};
-////////////////////////////////
+Bookstore::~Bookstore() {};
 
-void Base::setPrice(int new_price) {
+ ////////////////////////////////
+///  Функции set и get  ////////
+
+void Bookstore::setPrice(int new_price) {
 	price = new_price;
 };
-int Base::getPrice() {
+int Bookstore::getPrice() {
 	return price;
 };
-void Base::setType(char s) {
+void Bookstore::setType(char s) {
 	type = s;
 };
-char Base::getType() {
+char Bookstore::getType() {
 	return type;
 };
 
-void Base::printFullType() {
+/////////////////////////////
+
+void Bookstore::printFullType() {
 	switch (type) {
 	case 'B':{
 		cout << "Книга";
@@ -44,12 +48,15 @@ void Base::printFullType() {
 	}
 	}
 };
-////////////////////////////////
-void Base::copyWord(char* orig, char* copy) {
+
+ ///////////////////////////////////
+// Функции для работы с строками //
+
+void Bookstore::copyWord(char* orig, char* copy) {
 	int i = 0;
 	while ((copy[i] = orig[i++]) != '\0');
 }
-void Base::getWord(char* word, int count) {
+void Bookstore::getWord(char* word, int count) {
 	char c;
 	int i;
 	for (i = 0;(i < count - 1) && ((c=getchar()) != '\n');word[i++] = c)
@@ -59,7 +66,7 @@ void Base::getWord(char* word, int count) {
 		while ((c = getchar()) != '\n');
 	}
 };
-void Base::getWordF(ifstream& fin, char* word, int count) {
+void Bookstore::getWordF(ifstream& fin, char* word, int count) {
 	char c;
 	int i = 0;
 	while (((c = fin.get()) != '\n') && (!fin.eof()) && (i < count - 1)) {

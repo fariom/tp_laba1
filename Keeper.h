@@ -1,5 +1,5 @@
 #pragma once
-#include "Base.h"
+#include "Bookstore.h"
 #include "Book.h"
 #include "Manual.h"
 #include "Chancellery.h"
@@ -26,9 +26,9 @@ public:
 	void editProduct(int count);
 
 	void save();
-	void restore();
+	void load();
 private:
-	Base** bookStore;
+	Bookstore** storage;
 	int size;
 	int limit;
 };

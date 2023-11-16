@@ -9,7 +9,8 @@ int main() {
 	setlocale(LC_ALL, "Rus");
 
 	Keeper* shop = new Keeper;
-	shop->restore();
+	shop->load();
+	pressEnter();
 
 	while (true) {
 		int choice;
@@ -20,9 +21,8 @@ int main() {
 		cout << "4) Убрать товар из магазина\n";
 		cout << "5) Изменить данные о товаре\n";
 		cout << "6) Очистить ассортимент магазина\n\n";
-		cout << "0) Выйти из магазина\n";
-		cin >> choice;
-		getchar();
+		cout << "0) Выйти из магазина (ассортимент сохранится в файле)\n";
+		input(&choice);
 		system("CLS");
 		switch (choice) {
 		case 1:
@@ -39,13 +39,13 @@ int main() {
 		{
 			cout << "Номер товара?" << endl;
 			int num;
-			char c;
-			cin >> num;
-			getchar();
-			if (num > shop->getSize())
+			input(&num);
+			if (num > shop->getSize() || num<=0)
 				cout << "Нет товара с таким номером" << endl;
-			else
+			else {
+				cout << "#" << num << "  ";
 				shop->printProduct(num);
+			}
 			break;
 		}
 		case 3:
@@ -54,8 +54,7 @@ int main() {
 			cout << "1) Книгу\n";
 			cout << "2) Учебник\n";
 			cout << "3) Канцелярию\n";
-			cin >> choice;
-			getchar();
+			input(&choice);
 			system("CLS");
 			if (choice >= 1 && choice <= 3)
 				shop->addProduct(choice);
@@ -67,8 +66,7 @@ int main() {
 		{
 			cout << "Номер товара?" << endl;
 			int num;
-			cin >> num;
-			getchar();
+			input(&num);
 			if (num > shop->getSize())
 				cout << "Нет товара с таким номером" << endl;
 			else {
@@ -81,8 +79,7 @@ int main() {
 		{
 			cout << "Номер товара?" << endl;
 			int num;
-			cin >> num;
-			getchar();
+			input(&num);
 			if (num > shop->getSize())
 				cout << "Нет товара с таким номером" << endl;
 			else {
