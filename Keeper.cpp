@@ -104,7 +104,6 @@ void Keeper::addProduct(int type) {
 		}
 	}
 	catch (const char* ex) {
-		eraseAll();
 		std::cout << ex << endl;
 		return;
 	}

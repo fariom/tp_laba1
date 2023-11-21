@@ -56,8 +56,10 @@ int main() {
 			cout << "3) Канцелярию\n";
 			input(&choice);
 			system("CLS");
-			if (choice >= 1 && choice <= 3)
+			if (choice >= 1 && choice <= 3) {
 				shop->addProduct(choice);
+				cout << "\nТовар успешно добавлен" << endl;
+			}
 			else
 				cout << "\nНекорректный ввод, попробуйте ещё раз\n" << endl;
 			break;

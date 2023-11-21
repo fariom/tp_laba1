@@ -43,7 +43,9 @@ Book::~Book() {
 	delete[] genre;
 };
 
-///////////////////////////////
+/////////////////////////////////////
+//  Функции для работы с товаром  //
+
 void Book::print() {
 	cout << "Название книги      " << name << endl;
 	cout << "Имя автора          " << author << endl;
@@ -99,7 +101,9 @@ void Book::printInFile(ofstream& fout) {
 	fout << getPrice() << endl;
 };
 
-///////////////////////////////
+
+////////////////////////////////////
+//    Функции set и get       /////
 
 void Book::setName(char* n) {
 	copyWord(n, name);

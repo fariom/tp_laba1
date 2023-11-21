@@ -1,6 +1,5 @@
 #include "Chancellery.h"
 
-
 Chancellery::Chancellery() {
 	typeOf = new char[20];
 	colour = new char[20];
@@ -29,6 +28,9 @@ Chancellery::~Chancellery() {
 	delete[] colour;
 	delete[] purpose;
 };
+
+ ////////////////////////////////////
+//  Функции для работы с товаром  //
 
 void Chancellery::print() {
 	cout << "Тип канцелярии      " << getTypeOf() << endl;
@@ -65,6 +67,9 @@ void Chancellery::printInFile(ofstream& fout) {
 	fout << getPurpose() << endl;
 	fout << getPrice() << endl;
 };
+
+////////////////////////////////////
+//     Функции set и get     //////
 
 void Chancellery::setTypeOf(char* tO) {
 	copyWord(tO, typeOf);
