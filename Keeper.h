@@ -17,7 +17,7 @@ public:
 	int getSize();
 
 	void print();
-	void eraseAll();
+	Keeper& operator -- ();  // очистить ассортимент
 	void checkLimit();
 
 	void printProduct(int count);

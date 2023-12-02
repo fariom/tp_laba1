@@ -92,7 +92,7 @@ int main() {
 		}
 		case 6:
 		{
-			shop->eraseAll();
+			--(*shop);
 			cout << "Ассортимент очищен" << endl;
 			break;
 		}

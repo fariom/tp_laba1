@@ -19,7 +19,7 @@ Keeper::Keeper(Keeper* orig) {
 	}
 };
 Keeper::~Keeper() {
-	eraseAll();
+	--(*this);
 	delete[] storage;
 };
 
@@ -49,10 +49,11 @@ void Keeper::print() {
 		cout << "\n\n";
 	}
 };
-void Keeper::eraseAll() {
+Keeper& Keeper::operator -- () {
 	while (size > 0) {
 		takeProduct(size);
 	}
+	return *this;
 };
 void Keeper::checkLimit() {
 	if (size == limit) {
@@ -77,7 +78,9 @@ void Keeper::printProduct(int count) {
 	storage[count - 1]->printFullType();
 	putchar('\n');
 	storage[count - 1]->print();
+	cout << storage[count - 1];
 };
+
 void Keeper::addProduct(int type) {
 	checkLimit();
 	try {
@@ -186,7 +189,7 @@ void Keeper::load() {
 			}
 		}
 		catch (const char* ex) { 
-			eraseAll();
+			--(*this);
 			std::cout << ex << endl;
 			fin.close();
 			return;
