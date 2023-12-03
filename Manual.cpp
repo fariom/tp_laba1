@@ -1,6 +1,7 @@
 #include "Manual.h"
 
 Manual::Manual() {
+	cout << "Вызов конструктора Manual без параметров" << endl;
 	name = new char[50];
 	author = new char[50];
 	educFacility = new char[100];
@@ -10,6 +11,7 @@ Manual::Manual() {
 	size = 0;
 };
 Manual::Manual(char* n, char* a, int rY, char* eF, int yS, int s) {
+	cout << "Вызов конструктора Manual с параметрами" << endl;
 	name = new char[50];
 	author = new char[50];
 	educFacility = new char[100];
@@ -22,6 +24,7 @@ Manual::Manual(char* n, char* a, int rY, char* eF, int yS, int s) {
 	size = s;
 };
 Manual::Manual(Manual* orig) {
+	cout << "Вызов конструктора копирования Manual" << endl;
 	name = new char[50];
 	author = new char[50];
 	educFacility = new char[100];
@@ -34,6 +37,7 @@ Manual::Manual(Manual* orig) {
 	size = orig->getSize();
 };
 Manual::~Manual() {
+	cout << "Вызов деструктора Manual" << endl;
 	delete[] name;
 	delete[] author;
 	delete[] educFacility;

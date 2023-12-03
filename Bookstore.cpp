@@ -1,18 +1,23 @@
 #include "Bookstore.h"
 
 Bookstore::Bookstore() {
+	cout << "Вызов конструктора Bookstore без параметров" << endl;
 	price = 0;
 	type = 'B';
 };
 Bookstore::Bookstore(int p, char t) {
+	cout << "Вызов конструктора Bookstore с параметрами" << endl;
 	price = p;
 	type = t;
 };
 Bookstore::Bookstore(Bookstore* orig) {
+	cout << "Вызов конструктора копирования Bookstore" << endl;
 	price = orig->getPrice();
 	type = orig->getType();
 };
-Bookstore::~Bookstore() {};
+Bookstore::~Bookstore() {
+	cout << "Вызов деструктора Bookstore" << endl;
+};
 
  ////////////////////////////////
 ///  Функции set и get  ////////

@@ -1,11 +1,13 @@
 #include "Chancellery.h"
 
 Chancellery::Chancellery() {
+	cout << "Вызов конструктора Chancellery без параметров" << endl;
 	typeOf = new char[20];
 	colour = new char[20];
 	purpose = new char[100];
 };
 Chancellery::Chancellery(char* t, char* c, char* p) {
+	cout << "Вызов конструктора Chancellery с параметрами" << endl;
 	typeOf = new char[20];
 	colour = new char[20];
 	purpose = new char[100];
@@ -15,6 +17,7 @@ Chancellery::Chancellery(char* t, char* c, char* p) {
 	setPurpose(p);
 };
 Chancellery::Chancellery(Chancellery* orig) {
+	cout << "Вызов конструктора копирования Chancellery" << endl;
 	typeOf = new char[20];
 	colour = new char[20];
 	purpose = new char[100];
@@ -24,6 +27,7 @@ Chancellery::Chancellery(Chancellery* orig) {
 	setPurpose(orig->getPurpose());
 };
 Chancellery::~Chancellery() {
+	cout << "Вызов деструктора Chancellery" << endl;
 	delete[] typeOf;
 	delete[] colour;
 	delete[] purpose;

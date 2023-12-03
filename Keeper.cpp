@@ -1,16 +1,19 @@
 #include "Keeper.h"
 
 Keeper::Keeper() {
+	cout << "Вызов конструктора Keeper без параметров" << endl;
 	storage = new Bookstore * [5];
 	limit = 5;
 	size = 0;
 };
 Keeper::Keeper(int count) {
+	cout << "Вызов конструктора Keeper с параметрами" << endl;
 	storage = new Bookstore * [count];
 	limit = count;
 	size = 0;
 };
 Keeper::Keeper(Keeper* orig) {
+	cout << "Вызов конструктора копирования Keeper" << endl;
 	this->setLimit(orig->getLimit());
 	this->setSize(orig->getSize());
 	storage = new Bookstore * [limit];
@@ -19,6 +22,7 @@ Keeper::Keeper(Keeper* orig) {
 	}
 };
 Keeper::~Keeper() {
+	cout << "Вызов деструктора Keeper" << endl;
 	--(*this);
 	delete[] storage;
 };
@@ -78,7 +82,6 @@ void Keeper::printProduct(int count) {
 	storage[count - 1]->printFullType();
 	putchar('\n');
 	storage[count - 1]->print();
-	cout << storage[count - 1];
 };
 
 void Keeper::addProduct(int type) {
@@ -164,7 +167,7 @@ void Keeper::load() {
 	}
 	int i = 0;
 	char type;
-	while (!fin.eof()) {
+	while (!(fin.peek() == EOF)) {
 		checkLimit();
 		fin.get(type);
 		fin.get();
@@ -198,7 +201,6 @@ void Keeper::load() {
 		storage[size]->setType(type);
 		storage[size++]->getFromFile(fin);
 	}
-	size--;
 	std::cout << "Загрузка данных из файла прошла успешно" << endl;
 	fin.close();
 	return;

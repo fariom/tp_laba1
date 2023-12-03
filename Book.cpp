@@ -2,6 +2,7 @@
 
 
 Book::Book() {
+	cout << "Вызов конструктора Book без параметров" << endl;
 	name = new char[50];
 	author = new char[50];
 	annotation = new char[500];
@@ -11,6 +12,7 @@ Book::Book() {
 	size = 0;
 };
 Book::Book(char* n, char* au, int rY, char* an, char* g, int s) {
+	cout << "Вызов конструктора Book с параметрами" << endl;
 	name = new char[50];
 	author = new char[50];
 	annotation = new char[500];
@@ -24,6 +26,7 @@ Book::Book(char* n, char* au, int rY, char* an, char* g, int s) {
 	setSize(s);
 };
 Book::Book(Book* orig) {
+	cout << "Вызов конструктора копирования Book" << endl;
 	name = new char[50];
 	author = new char[50];
 	annotation = new char[500];
@@ -37,6 +40,7 @@ Book::Book(Book* orig) {
 	size = orig->getSize();
 };
 Book::~Book() {
+	cout << "Вызов деструктора Book" << endl;
 	delete[] name;
 	delete[] author;
 	delete[] annotation;
